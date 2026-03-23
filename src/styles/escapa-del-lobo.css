@@ -1,0 +1,166 @@
+/* ===========================================
+   ESCAPA DEL LOBO — Estilos específicos
+   =========================================== */
+
+/* ── Game layout — mobile first ── */
+.edl-game-screen { flex-direction: column; align-items: stretch; }
+
+/* Top bar: player cards + dice (mobile: horizontal) */
+.edl-topbar {
+  background: rgba(0,0,0,0.35);
+  border-bottom: 1px solid rgba(201,168,76,0.12);
+  display: flex; align-items: center; gap: var(--sp-2);
+  padding: var(--sp-2) var(--sp-3); flex-shrink: 0; flex-wrap: wrap;
+}
+
+/* Player cards */
+.edl-player-card {
+  display: flex; align-items: center; gap: var(--sp-2);
+  padding: 6px 10px; border-radius: var(--radius-md);
+  border: 1px solid rgba(255,255,255,0.06);
+  background: rgba(255,255,255,0.03);
+  transition: all 0.25s; flex: 1; min-width: 0;
+}
+.edl-player-card.active {
+  border-color: var(--gold); background: rgba(201,168,76,0.09);
+  box-shadow: 0 0 8px rgba(201,168,76,0.15);
+}
+.edl-piece-icon  { font-size: 18px; line-height: 1; flex-shrink: 0; }
+.edl-player-info { flex: 1; min-width: 0; }
+.edl-player-name {
+  font-size: 11px; font-weight: 700; color: rgba(245,236,215,0.65);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.edl-player-card.active .edl-player-name { color: var(--gold); }
+.edl-player-role { font-size: 8px; color: rgba(245,236,215,0.28); letter-spacing: 0.5px; }
+.edl-turn-dot {
+  width: 5px; height: 5px; border-radius: 50%;
+  background: rgba(255,255,255,0.1); flex-shrink: 0; transition: all 0.25s;
+}
+.edl-turn-dot.active { background: var(--gold); box-shadow: 0 0 4px rgba(201,168,76,0.6); }
+
+/* Dice area */
+.edl-dice-area { display: flex; align-items: center; gap: var(--sp-2); flex-shrink: 0; }
+.edl-dice {
+  width: 42px; height: 42px; background: var(--cream);
+  border-radius: 9px; border: 2px solid rgba(201,168,76,0.4);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px; font-weight: 900; color: #000;
+  font-family: var(--font-display); user-select: none; flex-shrink: 0;
+  transition: border-color 0.2s;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.8);
+}
+.edl-dice.rolling { animation: diceRoll 0.42s ease; }
+.edl-dice.rolled  { border-color: var(--gold); box-shadow: 0 3px 10px rgba(0,0,0,0.5), 0 0 10px rgba(201,168,76,0.3), inset 0 1px 0 rgba(255,255,255,0.8); }
+@keyframes diceRoll {
+  0%{transform:rotate(0)scale(1)} 15%{transform:rotate(-22deg)scale(.87)}
+  30%{transform:rotate(18deg)scale(1.13)} 50%{transform:rotate(-13deg)scale(.92)}
+  70%{transform:rotate(9deg)scale(1.07)} 85%{transform:rotate(-4deg)scale(.97)} 100%{transform:rotate(0)scale(1)}
+}
+.edl-dice-info { display: flex; flex-direction: column; gap: 3px; }
+.edl-steps-badge {
+  background: rgba(201,168,76,0.15); border: 1px solid rgba(201,168,76,0.3);
+  border-radius: 14px; padding: 2px 8px; font-size: 9px; font-weight: 700;
+  color: var(--gold); display: none; white-space: nowrap;
+}
+.edl-steps-badge.show { display: block; }
+.btn-roll {
+  padding: 7px 14px; background: var(--gold); color: #000;
+  border-radius: var(--radius-sm); font-size: 10px; font-weight: 700;
+  letter-spacing: 1.5px; text-transform: uppercase;
+  font-family: var(--font-ui); white-space: nowrap; transition: all 0.18s;
+}
+.btn-roll:not(:disabled):hover { background: var(--gold-light); transform: translateY(-1px); }
+.btn-roll:disabled { opacity: 0.3; cursor: not-allowed; }
+.edl-hint {
+  font-size: 9px; color: rgba(245,236,215,0.4);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 120px;
+}
+
+/* Board */
+.edl-board-wrap {
+  flex: 1; position: relative; display: flex;
+  align-items: center; justify-content: center; padding: 6px; min-height: 0;
+}
+.edl-board {
+  width: 100%; height: 100%; border-radius: 12px; overflow: hidden;
+  box-shadow: 0 6px 24px rgba(0,0,0,0.6); display: block;
+}
+
+/* Log — horizontal strip on mobile */
+.edl-log {
+  background: rgba(0,0,0,0.3); border-top: 1px solid rgba(201,168,76,0.1);
+  padding: 5px 10px; display: flex; gap: 6px;
+  overflow-x: auto; flex-shrink: 0; scrollbar-width: none;
+}
+.edl-log::-webkit-scrollbar { display: none; }
+.edl-log-entry {
+  font-size: 9px; color: rgba(245,236,215,0.5); padding: 2px 7px;
+  background: rgba(255,255,255,0.04); border-radius: 10px;
+  border: 1px solid rgba(201,168,76,0.15); white-space: nowrap; flex-shrink: 0;
+}
+.edl-log-entry:first-child { color: rgba(245,236,215,0.9); border-color: rgba(201,168,76,0.4); }
+
+/* SVG nodes pulse highlight */
+.edl-highlight-pulse { animation: edlPulse 0.9s ease-in-out infinite; }
+@keyframes edlPulse { 0%,100%{opacity:.5} 50%{opacity:1} }
+
+/* Map info badge in topbar */
+.edl-map-badge {
+  background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 6px; padding: 3px 8px; font-size: 9px;
+  color: rgba(245,236,215,0.4); white-space: nowrap; flex-shrink: 0;
+}
+
+/* ── Desktop sidebar layout ── */
+@media (min-width: 600px) {
+  .edl-game-screen { flex-direction: row; }
+
+  .edl-topbar {
+    flex-direction: column; width: 175px; flex-shrink: 0;
+    border-bottom: none; border-right: 1px solid rgba(201,168,76,0.12);
+    padding: var(--sp-3); align-items: stretch; flex-wrap: nowrap;
+    gap: var(--sp-2); overflow-y: auto;
+  }
+  .edl-player-card { flex: none; }
+  .edl-dice-area   { flex-direction: column; align-items: center; gap: var(--sp-2); }
+  .edl-hint        { max-width: none; text-align: center; }
+  .edl-steps-badge { text-align: center; }
+  .edl-map-badge   { text-align: center; }
+
+  .edl-log {
+    flex-direction: column; border-top: none; overflow-y: auto; overflow-x: hidden;
+    width: 170px; flex-shrink: 0;
+    border-left: 1px solid rgba(201,168,76,0.08);
+    padding: var(--sp-2) var(--sp-2);
+  }
+  .edl-log-entry {
+    white-space: normal; border-radius: 0;
+    border-left: 2px solid rgba(201,168,76,0.2);
+    border-top: none; border-right: none; border-bottom: none;
+  }
+  .edl-log-entry:first-child { border-left-color: var(--gold); }
+  .edl-board-wrap { padding: var(--sp-3); }
+}
+
+/* ── Setup specifics for EDL ── */
+.edl-map-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px;
+}
+.edl-map-chip {
+  background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1);
+  border-radius: var(--radius-md); padding: 10px 6px;
+  cursor: pointer; transition: all 0.18s; text-align: center;
+}
+.edl-map-chip:hover { border-color: rgba(201,168,76,0.4); background: rgba(255,255,255,0.07); }
+.edl-map-chip.selected { background: rgba(201,168,76,0.12); border-color: var(--gold); box-shadow: 0 0 0 1px var(--gold); }
+.edl-map-chip-icon { font-size: 20px; display: block; margin-bottom: 4px; }
+.edl-map-chip-name { font-size: 9px; font-weight: 700; color: rgba(245,236,215,0.6); letter-spacing: 0.5px; }
+.edl-map-chip.selected .edl-map-chip-name { color: var(--gold); }
+.edl-map-chip-desc { font-size: 8px; color: rgba(245,236,215,0.3); margin-top: 2px; line-height: 1.3; }
+.edl-map-info {
+  background: rgba(201,168,76,0.08); border: 1px solid rgba(201,168,76,0.2);
+  border-radius: 8px; padding: 8px 12px; font-size: 10px;
+  color: rgba(245,236,215,0.6); line-height: 1.5;
+}
+.edl-map-info strong { color: var(--gold); }
