@@ -148,6 +148,18 @@ export class MayorMenorUI extends BaseGameUI {
             <div class="player-name"  id="mm-name-p1">Jugador 1</div>
             <div class="player-count" id="mm-count-p1">Cartas: 0</div>
           </div>
+          <div class="player-zone-area-mobile">
+            <div class="player-zone active" id="mm-zone-p1-mobile">
+              <div class="deck-stack"><div class="deck-face"><span class="deck-letter">T</span></div></div>
+              <div class="player-name"  id="mm-name-p1-mobile">Jugador 1</div>
+              <div class="player-count" id="mm-count-p1-mobile">Cartas: 0</div>
+            </div>
+            <div class="player-zone" id="mm-zone-p2-mobile">
+              <div class="deck-stack"><div class="deck-face"><span class="deck-letter">T</span></div></div>
+              <div class="player-name"  id="mm-name-p2-mobile">Jugador 2</div>
+              <div class="player-count" id="mm-count-p2-mobile">Cartas: 0</div>
+            </div>
+          </div>
           <div class="board-wrap">
             <div class="mm-board" id="mm-board"></div>
             <div class="action-btns">
@@ -205,6 +217,8 @@ export class MayorMenorUI extends BaseGameUI {
   #onGameStarted({ players }) {
     document.getElementById('mm-name-p1').textContent = players[0].name.toUpperCase();
     document.getElementById('mm-name-p2').textContent = players[1].name.toUpperCase();
+    document.getElementById('mm-name-p1-mobile').textContent = players[0].name.toUpperCase();
+    document.getElementById('mm-name-p2-mobile').textContent = players[1].name.toUpperCase();
     document.getElementById('mm-result-overlay').classList.remove('show');
     this.#updateCounts();
     this.#renderBoard(this.#game.board);
@@ -216,6 +230,7 @@ export class MayorMenorUI extends BaseGameUI {
     const isPvP = this.#game.config.playerTypes.every(t => t === 'human');
     document.getElementById('mm-zone-p1').classList.toggle('active',  isP1);
     document.getElementById('mm-zone-p2').classList.toggle('active', !isP1);
+    document.getElementById('mm-zone-p2-mobile').classList.toggle('active', !isP1);
     const badge = document.getElementById('mm-turn-badge');
     badge.textContent = player.type === 'ai'
       ? `Turno de ${player.name} (IA)`
@@ -316,6 +331,8 @@ export class MayorMenorUI extends BaseGameUI {
     const [p1, p2] = this.#game.players;
     document.getElementById('mm-count-p1').textContent = `Cartas: ${p1.cardCount}`;
     document.getElementById('mm-count-p2').textContent = `Cartas: ${p2.cardCount}`;
+    document.getElementById('mm-count-p1-mobile').textContent = `Cartas: ${p1.cardCount}`;
+    document.getElementById('mm-count-p2-mobile').textContent = `Cartas: ${p2.cardCount}`;
   }
   #clearSelection() {
     document.querySelectorAll('#mm-board .card.selected').forEach(c => {

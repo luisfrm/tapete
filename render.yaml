@@ -1,0 +1,12 @@
+services:
+  - type: static
+    name: tapete
+    env: static
+    buildCommand: pnpm install && pnpm run build
+    publishDir: dist
+    
+    # Opcional: Redirigir todas las rutas a index.html (útil si usas un router de JS like react-router)
+    # routes:
+    #   - type: rewrite
+    #     source: /*
+    #     destination: /index.html
