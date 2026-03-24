@@ -57,10 +57,11 @@ body {
 }
 
 #app {
-  width: 100vw;
+  width: 100%;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  overflow-x: hidden;
 }
 
 button {
@@ -94,6 +95,12 @@ button {
     opacity: 1;
     transform: scale(1);
   }
+}
+
+.game-area-mount {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 /* ── Game header ── */
